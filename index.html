@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="toast"></div>
+    <div>
+      <!--    <div class="toast toast--success">
+            <div class="toast__icon">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+
+            <div class="toast__body">
+                <h3 class="toast__title">Success</h3>
+                <p class="toast__msg">Anyone with access can view your invited visitors.</p>
+            </div>
+
+            <div class="toast__close">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+        </div>
+        <div class="toast toast--info">
+            <div class="toast__icon">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+
+            <div class="toast__body">
+                <h3 class="toast__title">Info</h3>
+                <p class="toast__msg">Anyone with access can view your invited visitors.</p>
+            </div>
+
+            <div class="toast__close">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+        </div>
+
+        <div class="toast toast--warning">
+            <div class="toast__icon">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+
+            <div class="toast__body">
+                <h3 class="toast__title">Warning</h3>
+                <p class="toast__msg">Anyone with access can view your invited visitors.</p>
+            </div>
+
+            <div class="toast__close">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+        </div>
+
+        <div class="toast toast--error">
+            <div class="toast__icon">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+
+            <div class="toast__body">
+                <h3 class="toast__title">Error</h3>
+                <p class="toast__msg">Anyone with access can view your invited visitors.</p>
+            </div>
+
+            <div class="toast__close">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+        </div> -->
+
+      <div onclick="showSuccessToast();" class="btn btn--success">
+        Show success toast
+      </div>
+      <div onclick="showErrorToast();" class="btn btn--danger">
+        Show error toast
+      </div>
+    </div>
+
+    <script>
+      const toast = ({
+        title = "",
+        message = "",
+        type = "",
+        duration = 3000,
+      }) => {
+        const main = document.getElementById("toast");
+        const icons = {
+          success: "fa-solid  fa-circle-check",
+          info: "fa-solid  fa-circle-info",
+          warning: "fa-solid  fa-circle-exclamation",
+          error: "fa-solid  fa-circle-exclamation",
+        };
+        const icon = icons[type]; //?????????
+        const delay = (duration / 1000).toFixed(2);
+
+        if (main) {
+          const toast = document.createElement("div");
+            
+        //  Remove toast automatic
+          const autoRemoveId = setTimeout(function() {
+            main.removeChild(toast);
+          }, duration + 1000)
+
+        //  Remove toast onclick
+          toast.onclick = function(e) {
+            if(e.target.closest('.toast__close')){
+                main.removeChild(toast);
+                clearTimeout(autoRemoveId);
+            }
+          }
+          toast.classList.add("toast", `toast--${type}`);
+          toast.style.animation = `toastSlideIn ease 0.5s, fadeOut linear 1s ${delay}s forwards`;
+          toast.innerHTML = `
+            <div class="toast__icon">
+                <i class="${icon}"></i>
+            </div>
+
+            <div class="toast__body">
+                <h3 class="toast__title">${title}</h3>
+                <p class="toast__msg">${message}</p>
+            </div>
+
+            <div class="toast__close">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+            `;
+
+          main.appendChild(toast);
+          
+        }
+      };
+
+      function showSuccessToast() {
+        toast({
+          title: "Success",
+          message: "Log in successfully",
+          type: "success",
+          duration: 5000,
+        });
+      }
+
+      function showErrorToast() {
+        toast({
+          title: "Error",
+          message: "An error has occurred. Log in failed",
+          type: "error",
+          duration: 5000,
+        });
+      }
+
+      //   const successBtn = document.querySelector("#js-success-btn");
+      //   successBtn.addEventListener("click", toast({
+      //     title: 'Success',
+      //     message: 'Anyone with access can view your invited visitors.',
+      //     type : 'info',
+      //     duration: 3000
+      //   }));
+
+      //   const errorBtn = document.querySelector("#js-error-btn");
+      //   errorBtn.addEventListener("click", toast({
+      //     title: 'Error',
+      //     message: 'Anyone with access can view your invited visitors.',
+      //     type : 'error',
+      //     duration: 3000
+      //   }));
+    </script>
+  </body>
+</html>
